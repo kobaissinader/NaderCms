@@ -1,0 +1,125 @@
+﻿@model NaderCms.Models.Post
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+
+<form asp-action="Edit" enctype="multipart/form-data">
+    @if (Model.PostType.PostTypeTitle == "Video" )
+    {
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input hidden asp-for="PostId" class="form-control" />
+        <input type="hidden" asp-for="Image" />
+        <div class="form-group">
+            <label asp-for="PostTitle" class="control-label"></label>
+            <input asp-for="PostTitle" class="form-control" />
+            <span asp-validation-for="PostTitle" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PostCreatoinDate" class="control-label"></label>
+            <input asp-for="PostCreatoinDate" class="form-control" />
+            <span asp-validation-for="PostCreatoinDate" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PostDetials" class="control-label"></label>
+            <input asp-for="PostDetials" class="form-control" />
+            <span asp-validation-for="PostDetials" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PostSummary" class="control-label"></label>
+            <input asp-for="PostSummary" class="form-control" />
+            <span asp-validation-for="PostSummary" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="VideoUrl" class="control-label"></label>
+            <input asp-for="VideoUrl" class="form-control" />
+            <span asp-validation-for="VideoUrl" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Image" class="control-label">Product Image</label>
+            <input asp-for="ImageUpload" class="form-control" />
+            <img src="" id="imgpreview" class="pt-2" alt="" />
+            <span asp-validation-for="ImageUpload" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input hidden asp-for="PostTypeId" class="form-control" />
+        </div>
+        <div class="form-group ">
+            <select multiple name="termIds">
+                @foreach (var i in ViewBag.terms)
+                {
+                    <option value="@i.TermId">@i.TermName</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+
+    }
+    else
+    {
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>     
+                <input hidden asp-for="PostId" class="form-control" />
+                <input type="hidden" asp-for="Image" />
+            <div class="form-group">
+                <label asp-for="PostTitle" class="control-label"></label>
+                <input asp-for="PostTitle" class="form-control" />
+                <span asp-validation-for="PostTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PostCreatoinDate" class="control-label"></label>
+                <input asp-for="PostCreatoinDate" class="form-control" />
+                <span asp-validation-for="PostCreatoinDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PostDetials" class="control-label"></label>
+                <input asp-for="PostDetials" class="form-control" />
+                <span asp-validation-for="PostDetials" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PostSummary" class="control-label"></label>
+                <input asp-for="PostSummary" class="form-control" />
+                <span asp-validation-for="PostSummary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image" class="control-label">Product Image</label>
+                <input asp-for="ImageUpload" class="form-control" />
+                <img src="" id="imgpreview" class="pt-2" alt="" />
+                <span asp-validation-for="ImageUpload" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input hidden asp-for="PostTypeId" class="form-control" />
+            </div>
+            <div class="form-group ">
+                        <select multiple name="termIds">
+                        @foreach (var i in ViewBag.terms)
+                        {
+                            <option value="@i.TermId" >@i.TermName</option>
+                        }
+                        </select>        
+                </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+    }
+
+        </form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <script>
+
+            $("#ImageUpload").change(function () {
+                readURL(this);
+            });
+        </script>
+    }
+}

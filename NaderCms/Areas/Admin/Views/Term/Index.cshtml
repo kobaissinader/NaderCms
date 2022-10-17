@@ -1,0 +1,46 @@
+﻿@model IEnumerable<NaderCms.Models.Term>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Terms</h1>
+
+<p>
+    <a asp-action="Create"><button class="btn btn-primary">Create New</button></a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                TermId
+            </th>
+            <th>
+                TermName
+            </th>
+            <th>
+                TaxonomyName
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @item.TermId
+            </td>
+            <td>
+                @item.TermName
+            </td>
+            <td>
+                @item.Taxonomy.TaxonomyName
+            </td>
+            <td>
+                    <a asp-action="Edit" asp-route-Termid="@item.TermId">Edit</a> |
+                    <a class="confirmDeletion" asp-action="Delete" asp-route-Termid="@item.TermId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

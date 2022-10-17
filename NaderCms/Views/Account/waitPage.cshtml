@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewData["Title"] = "waitPage";
+}
+
+
+@if(User.IsInRole("admin") || User.IsInRole("editor"))
+{
+    <h1>Welcome Agian @User.Identity.Name</h1>
+}
+else{
+    <h1>You need to wait until the admin assign you a role</h1>
+}

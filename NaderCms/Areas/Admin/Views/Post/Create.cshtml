@@ -1,0 +1,112 @@
+﻿@model NaderCms.Models.Post
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+@if (ViewBag.postTypeId == null)
+{
+    <h1>Create a Post</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    PostTypeId
+                </th>
+                <th>
+                    PostTypeTitle
+                </th>
+                <th>
+                    PostTypeCode
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var i in ViewBag.postType)
+            {
+                <tr>
+                    <td>
+                        @i.PostTypeId
+                    </td>
+                    <td>
+                        @i.PostTypeTitle
+                    </td>
+                    <td>
+                        @i.PostTypeCode
+                    </td>
+                    <td>
+                        <a asp-action="Create" asp-route-PostTypeId="@i.PostTypeId">Create Post</a> 
+                        
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+    else
+    {
+        <h1>Create @ViewBag.PostType.PostTypeTitle</h1>
+
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Create" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <input type="hidden" asp-for="PostTypeId" />
+
+                    <div class="form-group">
+                        <label asp-for="PostTitle" class="control-label"></label>
+                        <input asp-for="PostTitle" class="form-control" />
+                        <span asp-validation-for="PostTitle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PostDetials" class="control-label"></label>
+                        <input asp-for="PostDetials" class="form-control" />
+                        <span asp-validation-for="PostDetials" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PostSummary" class="control-label"></label>
+                        <input asp-for="PostSummary" class="form-control" />
+                        <span asp-validation-for="PostSummary" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input hidden class="form-control" value="@ViewBag.PostType.PostTypeTitle" />
+                    </div>
+                    <div class="form-group ">
+                        <select multiple name="termIds">
+                            @foreach (var i in ViewBag.terms)
+                            {
+                                <option value="@i.TermId">@i.TermName</option>
+                            }
+                        </select>        
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Image" class="control-label">Product Image</label>
+                        <input asp-for="ImageUpload" class="form-control" />
+                        <img src="" id="imgpreview" class="pt-2" alt="" />
+                        <span asp-validation-for="ImageUpload" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    }
+}
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+
+        $("#ImageUpload").change(function () {
+            readURL(this);
+        });
+    </script>
+}
+

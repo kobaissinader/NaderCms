@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - NaderCms</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                
+                <ul class="navbar-nav flex-grow-1">
+                    @if (User.IsInRole("admin"))
+                    {
+                        <a class="navbar-brand" asp-area="Admin" asp-controller="Post" asp-action="Index">NaderCms</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <li class="nav-item ml-1">
+                            <a asp-area="Admin" asp-controller="Users" asp-action="Index" class="nav-link text-dark">Users</a>
+                        </li>
+
+                        <li class="nav-item ml-1">
+                            <a asp-area="Admin" asp-controller="Roles" asp-action="Index" class="nav-link text-dark">Roles</a>
+                        </li>
+                        <li class="nav-item ml-1">
+                            <a asp-area="Admin" asp-controller="Taxonomy" asp-action="Index" class="nav-link text-dark">Taxonomy</a>
+                        </li>
+
+                        <li class="nav-item ml-1">
+                            <a asp-area="Admin" asp-controller="Term" asp-action="Index" class="nav-link text-dark">Term</a>
+                        </li>
+
+                        <li class="nav-item ml-1">
+                            <a asp-area="Admin" asp-controller="PostType" asp-action="Index" class="nav-link text-dark">PostType</a>
+                        </li>
+
+                        <li class="nav-item ml-1">
+                            <a asp-area="Admin" asp-controller="Post" asp-action="Index" class="nav-link text-dark">Post</a>
+                        </li>
+                    }
+                    @if (User.IsInRole("editor")  )
+                    {
+                        <a class="navbar-brand" asp-area="Admin" asp-controller="Post" asp-action="Index">dgPadCms</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <li class="nav-item ml-1">
+                            <a asp-area="Admin" asp-controller="Taxonomy" asp-action="Index" class="nav-link text-dark">Taxonomy</a>
+                        </li>
+
+                        <li class="nav-item ml-1">
+                            <a asp-area="Admin" asp-controller="Term" asp-action="Index" class="nav-link text-dark">Term</a>
+                        </li>
+
+                        <li class="nav-item ml-1">
+                            <a asp-area="Admin" asp-controller="PostType" asp-action="Index" class="nav-link text-dark">PostType</a>
+                        </li>
+
+                        <li class="nav-item ml-1">
+                            <a asp-area="Admin" asp-controller="Post" asp-action="Index" class="nav-link text-dark">Post</a>
+                        </li>
+                    }
+                    <li class="nav-item ml-1">
+                        <a href="https://localhost:5003/" target="_blank" class="nav-link text-dark">User Website</a>
+                    </li>
+                </ul>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    
+                    <ul class="navbar-nav flex-grow-1 justify-content-end">
+
+                    @if (User?.Identity?.IsAuthenticated ?? false)
+                    {
+                        <li class="nav-item">
+                            <a asp-controller="Account" asp-action="Edit" class="btn btn-primary">My Account</a>
+                        </li>
+
+                        <li class="nav-item ml-1">
+                                <a asp-area="" asp-controller="Account" asp-action="Logout" class="btn btn-danger">Hi, @User.Identity.Name, Log out</a>
+                        </li>
+                    }
+                    else{
+                            <li class="nav-item">
+                                <a asp-controller="Account" asp-action="Login" class="btn btn-success">Log in</a>
+                            </li>
+                            <li class="nav-item ml-1">
+                                <a asp-controller="Account" asp-action="Register" class="btn btn-primary">Register</a>
+                            </li>
+                    }
+                    </ul>
+                    
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            <partial name="_NotificationPartial" />
+            <div class="col">
+                @RenderBody()
+            </div>
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - NaderCms>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<NaderCms.Models.PostType>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>PostTypes</h1>
+
+<p>
+    <a asp-action="Create"><button class="btn btn-primary">Create New</button></a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                PostTypeId
+            </th>
+            <th>
+                PostTypeTitle
+            </th>
+            <th>
+                PostTypeCode
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @item.PostTypeId
+            </td>
+            <td>
+                @item.PostTypeTitle
+            </td>
+            <td>
+                @item.PostTypeCode
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-PostTypeId="@item.PostTypeId">Edit</a> |
+                <a class="confirmDeletion" asp-action="Delete" asp-route-PostTypeId="@item.PostTypeId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

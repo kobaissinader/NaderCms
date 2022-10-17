@@ -1,0 +1,40 @@
+﻿@model IEnumerable<NaderCms.Models.Taxonomy>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Taxonomies</h1>
+
+<p>
+    <a asp-action="Create"><button class="btn btn-primary">Create New</button></a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                TaxonomyId
+            </th>
+            <th>
+                TaxonomyName
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @item.TaxonomyId
+            </td>
+            <td>
+                @item.TaxonomyName
+            </td>
+            <td>
+                    <a asp-action="Edit" asp-route-Taxonomyid="@item.TaxonomyId">Edit</a> |
+                    <a class="confirmDeletion" asp-action="Delete" asp-route-Taxonomyid="@item.TaxonomyId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
